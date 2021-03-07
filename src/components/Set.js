@@ -79,7 +79,7 @@ class Set extends Component {
         if (selectedUsers.length === 4) {
             await this.setState({
                 tempUsers: users,
-                users: selectedUsers
+                // users: selectedUsers
             })
         } else {
             let tempUsers = this.state.tempUsers || [];
@@ -95,12 +95,12 @@ class Set extends Component {
             console.log('state', this.state)
             await this.setState({
                 tempUsers: [],
-                users: (tempUsers.length > 0) ? tempUsers : users
+                // users: (tempUsers.length > 0) ? tempUsers : users
             })
         }
     }
 
-    play = () => {
+    play = async () => {
         let selectedUsers = this.state.selectedUsers;
         let queue = this.state.queue;
         let users = this.state.users;
@@ -110,11 +110,12 @@ class Set extends Component {
         queue.push(selectedUsers);
         selectedUsers = [];
 
-        this.setState({
+        await this.setState({
             users: users,
             queue: queue,
             selectedUsers: []
         })
+        console.log('play', this.state)
         this.compute();
     }
 
@@ -136,9 +137,10 @@ class Set extends Component {
         })
         console.log('compute state', this.state)
         await this.setState({
-            users: this.state.tempUsers,
+            users: this.state.users,
             menu: 'queue'
         })
+        console.log('compute state1', this.state)
         localStorage.setItem('data', JSON.stringify(this.state));
         // this.props.history.push('/queue');
         // this.props.navigate('queue')
@@ -235,7 +237,11 @@ class Set extends Component {
                                 </div>
                             )
                         )} */}
-                        <Button className="ra-button full-block" onClick={this.play}>Play</Button>
+                        <Button className="ra-button full-block" onClick={this.play}>Set
+                            {/* {this.state?.selectedUsers?.map((selectedUser, k) => (
+                                <span>{selectedUser} { (k === this.state.selectedUsers.length - 1) ? <span>&bull;</span> : <span></span>}</span>
+                            ))} */}
+                        </Button>
                     </div> 
                             : <div></div> 
                             }
