@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
+import 'antd/dist/antd.css';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 

@@ -122,6 +122,8 @@ class Set extends Component {
     compute = async () => {
         let users = this.state.users;
         let queue = this.state.queue;
+        console.log('computeeee', this.state)
+        let scAmount = this.state.scAmount;
 
         users.forEach((user) => {
             user.sc = 0;
@@ -130,7 +132,7 @@ class Set extends Component {
                 q.forEach(element => {
                   if (element.name === user.name) {
                     user.sc++;
-                    user.total = user.total + 20; 
+                    user.total = user.total + scAmount; 
                   }  
                 });
             });
@@ -203,7 +205,7 @@ class Set extends Component {
                     </Form>
                     <div className="flex-queue__container">
                         <div className="flex-queue">
-                            {this.state.users.map((user, i) => (
+                            {this.state.users?.map((user, i) => (
                                 <label key={i} className={"queue-member" + ((user.checked) ? " selected":"")}> 
                                     <input
                                         type="checkbox"

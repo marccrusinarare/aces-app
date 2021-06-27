@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { Button, Container } from 'react-bootstrap';
+import { Divider, Form, Input, InputNumber, message } from 'antd';
 
 const initialState = {
     password: ''
@@ -21,13 +22,22 @@ class Setting extends Component {
 
     reset = () => {
         localStorage.removeItem('data');
+        message.info('Reset data successfully');
     }
 
     logout = () => {
 
     }
 
+    onChange = async (event) => {
+        await this.setState({ scAmount: event})
+        if (this.state.users)
+            localStorage.setItem('data', JSON.stringify(this.state));
+    }
+
     render() {
+        let { scAmount } = this.state;
+        console.log('render', scAmount)
         return (
             <Container>
                 <div className="flex-queue__container">
@@ -38,8 +48,15 @@ class Setting extends Component {
                     <div>
                         <Button className="ra-button full-block" onClick={this.reset}>Reset</Button>
                     </div>
-                    <br/>
+                    <Divider/>
                     <div>
+                        <Form.Item
+                            label="SC Amount"
+                            name="scamount"
+                            rules={[{ required: true, message: 'Please input sc amount!' }]}
+                        >
+                            <InputNumber min={10} max={50} defaultValue={scAmount} onChange={(e) => this.onChange(e)} />
+                        </Form.Item>
                         {/* <Button className="ra-button full-block" onClick={(event) => this.props.updateField('')}>Logout</Button> */}
                     </div>
                 </div>
